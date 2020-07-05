@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Control Aire Cuco 75</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!-- <script src="https://code.jquery.com/ui/jquery-ui-git.js"></script> -->
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+        <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css"> -->
+        <!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script> -->
+
+      <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script> -->
+      <!-- <script src="js/bootstrap-table.min.js"></script> -->
+      <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css"> -->
+      <!-- <link rel="stylesheet" href="css/bootstrap-table.min.css"> -->
+
+
+      <link rel="stylesheet" href="css/acuario.css">
+
+      <script src="js/temporizadores.js"></script>
+
+      <link href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css" rel="stylesheet">
+      <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css" >
+
+      <!-- <link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
+      <script src="https://bootswatch.com/_assets/js/custom.js"></script> -->
+
+    </head>
+
+    <body>
+
+          <!-- Div that shows messages back to user -->
+      <div id="messageBox" style="display: none; bottom: 10px; width: 100%; position: fixed; z-index: 990; text-align: center; padding: 20px; color: #ffffff; border: 0px solid black">
+      <span id="messageBox_inner" style="padding: 16px; border: 1px solid black"></span>
+      </div>
+
+    <div class="container-fluid">
+      <h1><span id="titulo">Control Aire Cuco 75</span></h1>
+      <nav class="nav nav-tabs" id="tab">
+        <a href="#tab_mesures" class="nav-item nav-link active" data-toggle="tab">Medidas</a>
+        <a href="#tab_graphs" class="nav-item nav-link" data-toggle="tab">Timers</a>
+        <a href="#tab_gpio" class="nav-item nav-link" data-toggle="tab">Rel&eacute;s  </a>
+        <a href="#tab_configuration" class="nav-item nav-link" data-toggle="tab">Configuraci&oacute;n</a>
+        <a href="#tab_temp" class="nav-item nav-link" data-toggle="tab">Control Aire</a>
+      </nav>
+      <div class="tab-content">
+        <div id="tab_mesures" class="tab-pane fade show active" >
+          <h2><span id="titulo">Control Aire Cuco 75</span></h2>
+          <h6>Control del Aire Acondicionadocon FV <span class="badge badge-primary">FV</span></h6>
+          <ul class="nav nav-pills">
+            <li class="active"><a href="#">Inversor
+                <div class="badge badge-info badge-pill pull-right" id="inversor">-</div> (W)  </a></li>
+            <li><a href="#"> Aire
+                <div class="badge badge-info badge-pill pull-right" id="aire">-</div> (W) </a></li>
+            <li><a href="#"> PZEM016
+                <div class="badge badge-info badge-pill pull-right" id="pzem">-</div> (W)  </a></li>
+          </ul><br>
+          <table id="table_mesures"  data-show-colunns="true">
+            <!-- <thead>
+              <tr>
+                <th data-field="medida" data-align="left" data-sortable="true" data-formatter="labelFormatter">Medida</th>
+                <th data-field="valor" data-align="left" data-sortable="true" data-formatter="valueFormatter">Valor</th>
+                <th data-field="precedente" data-align="left" data-sortable="true" data-formatter="vpFormatter">Valor anterior</th>
+              </tr>
+            </thead> -->
+            <thead>
+              <tr>
+                <th data-field="key" data-align="left" data-sortable="true" >Canal</th>
+                <th data-field="value" data-align="left" data-sortable="true" >Valor</th>
+
+              </tr>
+            </thead>
+
+          </table>
+
+
+
+        </div>
+
+        <div class="tab-pane fade" id="tab_graphs">
+          <h2>Configure Timers</h2><span>Reles D0 - D3- D7 -D8</span><span style="color:blue"> &nbsp;  Escriba la constraseña o "test" y click "GO" button </span>
+          <h4 class="text-center">
+            Password : <input type="text" class="input-lg" id="piIp"> <button type="button" id="btn_go" class="btn btn-lg btn-success">Go</button>
+          </h4>
+
+          <div class="m-b">
+
+            <div class="btn-group2">
+                Seleccione el Rele a configurar :
+              <button type="button" class=" active btn btn-info" id="D0b">D0</button>
+              <button type="button" class="btn btn-info" id="D3b" >D3</button>
+              <button type="button" class="btn btn-info" id="D7b">D7</button>
+              <button type="button" class="btn btn-info" id="D8b">D8</button>
+            </div>
+          </div>
+          <button id="but_defecto" type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#basicModal">Default</button>
+          <button id="but_alloff" type="button" class="btn btn-primary btn-sm">All off</button>
+
+          <div id="contentA" style="width: 80%; margin: auto;">
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="tab_gpio">
+          <h2>GPIO</h2>
+          <div class="row">
+            <div class="col-xs-6 col-md-4">
+              <h4 class="text-left">D0
+                <span class="badge badge-warning badge-pill" id="D0_etat">OFF</span>
+              </h4>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-success btn-lg" id="D0_On" type="button">ON</div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-danger btn-lg" id="D0_Off" type="button">OFF</div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <h4 class="text-left">D3
+                <div class="badge badge-warning badge-pill" id="D3_etat">OFF</div>
+              </h4>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-success btn-lg" id="D3_On" type="button">ON</div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-danger btn-lg" id="D3_Off" type="button">OFF</div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <h4 class="text-left">D7
+                <div class="badge badge-warning badge-pill" id="D7_etat">OFF</div>
+              </h4>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-success btn-lg" id="D7_On" type="button">ON</div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-danger btn-lg" id="D7_Off" type="button">OFF</div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <h4 class="text-left">D8
+                <div class="badge badge-warning badge-pill" id="D8_etat">OFF</div>
+              </h4>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-success btn-lg" id="D8_On" type="button">ON</div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-danger btn-lg" id="D8_Off" type="button">OFF</div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="tab-pane fade" id="tab_temp">
+          <h2>Control Potencia</h2>
+          <h6> -- Poner control manual para controlar desde aquí --</h6>
+          <div class="row">
+            <div class="col-xs-6 col-md-4">
+              <h4 class="text-left">Inversor
+                <span class="badge badge-warning badge-pill" id="inversor_etat">OFF</span>
+              </h4>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-success btn-lg" id="inversor_On" type="button">ON</div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-danger btn-lg" id="inversor_Off" type="button">OFF</div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <h4 class="text-left">Aire
+                <div class="badge badge-warning badge-pill" id="aire_etat">OFF</div>
+              </h4>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-success btn-lg" id="aire_On" type="button">ON</div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="button btn btn-danger btn-lg" id="aire_Off" type="button">OFF</div>
+            </div>
+
+              <div class="col-xs-6 col-md-6">
+                <h6> Ajuste Potencia M&aacute;nimo y M&iacute;ximo:</h6> <b>500W</b>
+
+                <input id="temp_slider" type="text" class="span2" value="" data-slider-min="500" data-slider-max="1500" data-slider-step="1" data-slider-value="[650,700]"/> <b>1500W</b>
+              </div>
+                <h6> Tipo de control ==> On= ambos ON; OFF= ambos off;Automático o Manual :</h6>
+              <div class="btn-group">
+              <button type="button" class="btn btn-primary btn-lg" id="btn_control_on" >On</button>
+              <button type="button" class="btn btn-primary btn-lg" id="btn_control_off">Off</button>
+              <button type="button" class="btn btn-primary btn-lg" id="btn_control_auto">Auto</button>
+              <button type="button" class="btn btn-primary btn-lg" id="btn_control_man">Manual</button>
+              </div>
+
+          </div>
+        </div>
+
+
+
+        <div class="tab-pane fade" id="tab_configuration">
+          <h2>Configuraci&oacute;n      </h2>
+
+          <!-- la form de configuraciónav -->
+          <!-- <form role="form" action="/saveconfig"> -->
+            <div class="padding">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="box">
+                    <div class="box-divider m-0"></div>
+                    <div class="box-body">
+
+                      <div class="form-group">
+                        <label for="version">version</label>
+                        <input type="text" class="form-control" name="version" id="version" value="">
+                      </div>
+                      <div class="form-group">
+                        <label for="EEPROM_chk">EEPROM_chk</label>
+                        <input type="text" class="form-control" name="EEPROM_chk" id="EEPROM_chk" value="">
+                      </div>
+                      <div class="form-group">
+                        <label for="version">DevName</label>
+                        <input type="text" class="form-control" name="DevName" id="DevName" value="">
+                      </div>
+                      <div class="form-group">
+                        <label for="version">Latitud</label>
+                        <input type="text" class="form-control" name="Latitud" id="Latitud" value="">
+                      </div>
+                      <div class="form-group">
+                        <label for="version">Longitud</label>
+                        <input type="text" class="form-control" name="Longitud" id="Longitud" value="">
+                      </div>
+                      <div class="form-group">
+                        <label for="version">TimeZone</label>
+                        <input type="text" class="form-control" name="TimeZone" id="TimeZone" value="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="box">
+                    <div class="box-divider m-0"></div>
+                    <div class="box-body">
+                      <div class="form-group row">
+                        <label for="IP_1" class="col-sm-2 form-control-label">IP_1</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="IP_1" name="IP_1">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="IP_2" class="col-sm-2 form-control-label">IP_2</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="IP_2" name="IP_2" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="IP_3" class="col-sm-2 form-control-label">IP_3</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="IP_3" name="IP_3" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="IP_4" class="col-sm-2 form-control-label">IP_4</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="IP_4" name="IP_4" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <small>Cayenne integration</small>
+                        <label for="username" class="col-sm-2 form-control-label">username</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="username" name="username" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="password" class="col-sm-2 form-control-label">password</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="password" name="password" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="clientID" class="col-sm-2 form-control-label">clientID</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="clientID" name="clientID" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="pwd" class="col-sm-2 form-control-label">passwd</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="pwd" name="pwd" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="ip_aire" class="col-sm-2 form-control-label">ip_aire</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="ip_aire" name="ip_aire" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="ip_inversor" class="col-sm-2 form-control-label">ip_inversor</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="ip_inversor" name="ip_inversor" >
+                        </div>
+                      </div>
+
+
+
+
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- variables de control temperatura -->
+                <div class="col-md-6">
+                  <div class="box">
+                    <div class="box-divider m-0"></div>
+                    <div class="box-body">
+                      <div class="form-group row">
+                        <label for="temp_max" class="col-sm-2 form-control-label">Potencia Max (W)</label>
+                        <div class="col-sm-5">
+                          <input type="text" class="form-control" id="temp_max" name="temp_max">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="temp_min" class="col-sm-2 form-control-label">Potencia min (W)</label>
+                        <div class="col-sm-5">
+                          <input type="text" class="form-control" id="temp_min" name="temp_min" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="temp_mode" class="col-sm-2 form-control-label">Modo de control (0-3)</label>
+                        <div class="col-sm-5">
+                          <input type="text" class="form-control" id="temp_mode" name="temp_mode" >
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                </div>
+                <!-- fin variables control temperatura -->
+
+              </div>
+            </div>
+            <button id="saveconfig" class="btn btn-primary">Save</button>
+            <!-- <button type="submit" class="btn btn-primary">Save</button> -->
+          <!-- </form> -->
+        </div>
+
+<!-- fin de form de configuración -->
+
+
+        <div class="row" style="  width:100%">
+          <p> <span id="separador"></span></p>
+        </div>
+
+        </div>
+         <!-- fin tab contain -->
+
+      <div class="row" style="  width:100%">
+        <p> <span id="separador"></span></p>
+      </div>
+      <!-- <div class="row" style="position:absolute; bottom:0; width:100%"> -->
+      <div class="row" style="  width:100%">
+        <div class="col-xs-2 col-md-2"><img src="img/logo.png" width="100" height="100"></div>
+        <div class="col-xs-5 col-md-5">
+          <p>Hora UTC NodeMCU: <span id="horanodemcu"></span></p>
+        </div>
+        <div class="col-xs-5 col-md-5">
+          <p>Hora local Ordenador: <span id="datetime"></span></p>
+        </div>
+      </div>
+
+      <div class="row" style="  width:100%">
+        <div class="col-xs-10 col-md-10">
+          <p><span id="mensajes" style="color:blue"></span></p>
+        </div>
+      </div>
+
+      <!--modal para load default configuration-->
+      <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel">Default Data </h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h3>¿Esta seguro de cargar los datos por defecto?</h3>
+            </div>
+            <div class="modal-footer">
+              <button type="button"  id="close" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" id="save" class="btn btn-primary" >OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <!--script(src='js/script.js')-->
+
+    <script>
+
+
+    $('#table_mesures').bootstrapTable({
+            columns: [{
+            field: 'key',
+            title: 'key name'
+          }, {
+            field: 'value',
+            title: 'value name'
+          }]
+    });
+
+
+    var temp_slider = $("#temp_slider").slider();
+    //temp_slider.slider('setValue', [17,28])
+
+    $('#temp_slider').slider().on('slideStop', function(ev){
+        var temp_objetivo = $('.span2').data('slider').getValue();
+            console.log('Value Changed!', temp_objetivo);
+            $(".alert small").text('Value Changed!', temp_objetivo);
+            savetemp(temp_objetivo);
+    });
+
+
+    function savetemp(temp_objetivo){
+      $.post("savetemp?cmd=" + 'savetemp' +
+        "&temp_max=" + temp_objetivo[1]+
+        "&temp_min=" + temp_objetivo[0]
+        ).done(function(data){
+          if ( data.success === "1" ) {
+            showSuccess("Datos grabados");
+            //loadData();
+          } else {
+              showError("error grabando los datos")
+          }
+        }).fail(function(err){
+          console.log("err saving data " + JSON.stringify(err));
+          $(".alert small").text("err saving data " + JSON.stringify(err));
+        });
+    }
+
+    $("#saveconfig").click(function(){
+        console.log("gurardando configuración");
+        saveconfig();
+    });
+
+    function saveconfig(){
+      conf['version']=$('#version').val();
+      conf['EEPROM_chk']=$('#EEPROM_chk').val();
+      conf['DevName']=$('#DevName').val();
+      conf['Latitud']=$('#Latitud').val();
+      conf['Longitud']=$('#Longitud').val();
+      conf['TimeZone']=$('#TimeZone').val();
+      conf['IP_1']=$('#IP_1').val();
+      conf['IP_2']=$('#IP_2').val();
+      conf['IP_3']=$('#IP_3').val();
+      conf['IP_4']=$('#IP_4').val();
+      conf['username']=$('#username').val();
+      conf['password']=$('#password').val();
+      conf['clientID']=$('#clientID').val();
+      conf['pwd']=$('#pwd').val();
+      conf['ip_aire']=$('#ip_aire').val();
+      conf['ip_inversor']=$('#ip_inversor').val();
+      conf['sunrise']=$('#sunrise').val();
+      conf['sunset']=$('#sunset').val();
+      temp_objetivo = temp_slider.slider('getValue');
+      conf["temp_max"]=temp_objetivo[1];
+      conf["temp_min"]=temp_objetivo[0];
+
+      $.post("saveconfig?cmd=" + 'saveconfig' +
+        "&temp_max=" + temp_objetivo[1]+
+        "&temp_min=" + temp_objetivo[0]+
+        "&DevName=" + conf["DevName"]+
+        "&version=" + conf["version"]+
+        "&EEPROM_chk=" + conf["EEPROM_chk"]+
+        "&Latitud=" + conf["Latitud"]+
+        "&Longitud=" + conf["Longitud"]+
+        "&TimeZone=" + conf["TimeZone"]+
+        "&IP_1=" + conf["IP_1"]+
+        "&IP_2=" + conf["IP_2"]+
+        "&IP_3=" + conf["IP_3"]+
+        "&IP_4=" + conf["IP_4"]+
+        "&username=" + conf["username"]+
+        "&password=" + conf["password"]+
+        "&clientID=" + conf["clientID"]+
+        "&pwd=" + conf["pwd"]+
+        "&ip_aire=" + conf["ip_aire"]+
+        "&ip_inversor=" + conf["ip_inversor"]+
+        "&temp_max=" + conf["temp_max"]+
+        "&temp_min=" + conf["temp_min"]+
+        "&temp_mode=" +conf["temp_mode"]
+        ).done(function(data){
+          if ( data.success === "1" ) {
+            showSuccess("Config grabada");
+            $(".alert small").text("Conf grabada!");
+            console.log(conf);
+            $(".alert small").text( JSON.stringify(conf));
+            receiveDataConf();
+          } else {
+              showError("error grabando config")
+          }
+        }).fail(function(err){
+          console.log("err saving config " + JSON.stringify(err));
+        });
+    }
+
+
+      //para los botones de modal load default configuration
+      $("#but_defecto").hide();//ocualta los botones inicialmente
+      $("#but_alloff").hide();
+
+      function save_all(){
+        for (i=0;i<num_total_reles;i++){
+          nr=i;
+          savemode();
+          for(k=0;k<7;k++){ // 7  porgramas
+            save_d(nr,k);
+          }
+        }
+        $("#mensajes").html("datos guardados.");
+        $(".alert small").text("datos guardados.");
+        loadData();
+      }
+
+      $("#save").on("click", function()
+      {
+            $("#basicModal").modal('hide');
+            //cargar y guardar los datos por defecto JsonString
+            $("#mensajes").html("Espere, configurando datos por defecto");
+            $(".alert small").text("Espere, configurando datos por defecto");
+            $('#contentA').hide("slow",function(){
+                $("#contentA").html("espere, cargando datos por defecto");
+                $("#mensajes").html("Espere, configurando datos por defecto");
+                $(".alert small").text("Espere, configurando datos por defecto");
+                console.log("cargando datos por defecto");
+                $("#piIp").val("test");
+                getData();
+                save_all();
+                $("#piIp").val(conf["pwd"]);
+                $("#mensajes").html("All OK");
+                $(".alert small").text("All OK");
+                $('#contentA').show();
+            });
+      });
+
+        $("#close").on("click", function()
+        {
+        });
+
+
+        $("#but_alloff").on("click", function()
+        {
+          $("#mensajes").html("espere, poniendo todos OFF");
+          $(".alert small").text("espere, poniendo todos OFF");
+          $('#contentA').hide("slow",function(){
+            for(i=0;i<num_total_reles;i++){
+              for(j=0;j<7;j++){ // 7  porgramas
+                timers[i].prog[j].startTime="00:00";
+                timers[i].prog[j].endTime="00:00";
+                timers[i].prog[j].aleatorio="00:00";
+                for(k=0;k<7;k++){ // 7 dias
+                  timers[i].prog[j].days[k]=false;
+                }
+              }
+            }
+            j=0;
+            save_all();
+            loadData();
+            $("#mensajes").html("All OK");
+            $(".alert small").text("All OK!");
+            $('#contentA').show();
+          });
+
+      });
+
+
+      $(".btn-group2 > .btn").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+          console.log(this);
+      });
+
+
+      $(".btn-group > .btn").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+          controlbotonestemp(this);
+      });
+
+      function controlbotonestemp(esto){
+          $("#btn_control_man").attr('class', 'btn btn btn-primary btn-lg');
+          $("#btn_control_on").attr('class', 'btn btn btn-primary btn-lg');
+          $("#btn_control_off").attr('class', 'btn btn btn-primary btn-lg');
+          $("#btn_control_auto").attr('class', 'btn btn btn-primary btn-lg');
+        if(esto.id=="btn_control_man"){
+            conf["temp_mode"]=3;
+            $(esto).attr('class', 'btn btn btn-warning btn-lg');
+        }
+        if(esto.id=="btn_control_on"){
+            conf["temp_mode"]=1;
+            //alert("Alarma! ha seleccionado tener encendidos el calentador y el ventilador al mismo tiempo, por favor verifique");
+
+            $(esto).attr('class', 'btn btn btn-success btn-lg');
+        }
+        if(esto.id=="btn_control_off"){
+            conf["temp_mode"]=0;
+            $(esto).attr('class', 'btn btn btn-danger btn-lg');
+        }
+        if(esto.id=="btn_control_auto"){
+            conf["temp_mode"]=2;
+            $(esto).attr('class', 'btn btn btn-info btn-lg');
+        }
+        saveconfig();
+        updateGPIO();
+        dibujabotonestemp(conf["temp_mode"]);
+        $(".alert small").text("grabados datos conf");
+      }
+
+      function dibujabotonestemp(modo){
+          $("#btn_control_man").attr('class', 'btn btn btn-primary btn-lg');
+          $("#btn_control_on").attr('class', 'btn btn btn-primary btn-lg');
+          $("#btn_control_off").attr('class', 'btn btn btn-primary btn-lg');
+          $("#btn_control_auto").attr('class', 'btn btn btn-primary btn-lg');
+        if(modo==3){
+            conf["temp_mode"]=3;
+            $('#btn_control_man').attr('class', 'btn btn btn-warning btn-lg');
+        }
+        if(modo==1){
+            $(".alert small").text("Alarma! ha seleccionado tener encendidos el calentador y el ventilador al mismo tiempo, por favor verifique!");
+            $('#btn_control_on').attr('class', 'btn btn btn-success btn-lg');
+        }
+        if(modo==0){
+            $('#btn_control_off').attr('class', 'btn btn btn-danger btn-lg');
+        }
+        if(modo==2){
+            $('#btn_control_auto').attr('class', 'btn btn btn-info btn-lg');
+        }
+      }
+
+
+    var dt = new Date();
+    document.getElementById("datetime").innerHTML =
+    (("0"+dt.getDate()).slice(-2)) +"."+ (("0"+(dt.getMonth()+1)).slice(-2)) +"."
+    + (dt.getFullYear()) +" "+ (("0"+dt.getHours()).slice(-2))
+    +":"+ (("0"+dt.getMinutes()).slice(-2));
+
+    </script>
+
+    <script>
+      var Timer_UdpateMesures;
+      //var num_rele=-1;
+      var num_total_reles=4;
+
+      var conf = [];
+      var timers=[];
+      var tiempo_timers=[];
+      var tiempo_conf;
+      var conf_recibida=false;
+
+      $( document ).ready(function() {
+              console.log( "document loaded" );
+              $("#mensajes").html("web cargada, esperando recibir configuración del NodeMCU. espere por favor");
+              $(".alert small").text("web cargada, esperando recibir configuración del NodeMCU. espere por favor");
+              setInterval(function(){
+                $(".alert small").text("Leyendo datos del NodeMCU");
+                updateMesures();
+                updateGPIO();
+                updateTime();
+                updateTimeNodemcu();
+                getConfig(); //cada vez que se cambia de pestaña se actualizan todos los datos timers y conf
+                updateTable();
+              },60000);
+
+              setInterval(function(){
+                $(".alert small").text("Leyendo datos del NodeMCU");
+                updateMesures();
+                updateGPIO();
+                updateTable();
+              },50000);
+              //actualizar tabla de medidas
+              $.getJSON('/tabmesures.json', function(data2){
+                dObject = JSON.parse(JSON.stringify(data2));
+                datosTabla = dObject;
+                console.log("datosTabla");
+                console.log(datosTabla);
+                $('#table_mesures').bootstrapTable({
+                    data: responseHanlder(datosTabla)
+                });
+              }).fail(function(err){
+                console.log("err getJSON mesures.json "+JSON.stringify(err));
+              });
+
+      });
+
+
+          function updateTime(){
+          //  console.log("updateTime");
+          var dt = new Date();
+          document.getElementById("datetime").innerHTML =
+          (("0"+dt.getDate()).slice(-2)) +"."+ (("0"+(dt.getMonth()+1)).slice(-2)) +"."
+          + (dt.getFullYear()) +" "+ (("0"+dt.getHours()).slice(-2))
+          +":"+ (("0"+dt.getMinutes()).slice(-2))
+          +":"+ (("0"+dt.getSeconds()).slice(-2));
+          };
+
+          function updateTimeNodemcu(){
+            $.getJSON('/hora.json', function(data){
+              var  cadena= data.Fecha+' '+data.hora;
+              $('#horanodemcu').html(cadena);
+            }).fail(function(err){
+              console.log("err getJSON hora.json "+JSON.stringify(err));
+            });
+          };
+
+          function receiveDataTimers(j){
+            //num_rele++;
+            //if(num_rele>=num_total_reles){num_rele=0;}
+            actual=new Date();
+            if ((actual - tiempo_timers[j])<20000){ return; } //esperar almenos 15 segundos para hacer otra llamada
+            tiempo_timers[j]=actual;
+            $.getJSON('/sendDataTimers.json','devID='+j, function(data){
+              ProgObject = JSON.parse(JSON.stringify(data));
+              var j=ProgObject["devID"];
+              if (ProgObject["prog"][0]["days"].length>0){
+                timers[j] = ProgObject;
+                console.log("timers");
+                console.log(timers);
+                $(".alert small").text( JSON.stringify(timers));
+              }
+
+              }).fail(function(err){
+              console.log("err getJSON sendDataTimers.json "+JSON.stringify(err));
+            });
+          };
+
+          function receiveDataConf(){
+            $(".alert small").text("Leyendo datos de configuración");
+            actual=new Date();
+            if ((actual - tiempo_conf)<20000){ return; } //esperar almenos 15 segundos para hacer otra llamada
+              tiempo_conf=actual;
+            $.getJSON('/sendDataConf.json', function(data){
+              cObject = JSON.parse(JSON.stringify(data));
+              conf = cObject;
+              console.log("conf");
+              console.log(conf);
+              $(".alert small").text( JSON.stringify(conf));
+              console.log(conf["DevName"])
+              newTitle=conf["DevName"];
+              if (document.title != newTitle) {
+                document.title = newTitle;
+              }
+                          //$('meta[name="description"]').attr("content", newDescription);
+                          $('#titulo').html(conf["DevName"]);
+                          conf_recibida=true;
+                          $("#mensajes").html("Configuración recibida, ya puede operar con seguridad");
+                          $(".alert small").text("Configuración recibida, ya puede operar con seguridad");
+                          //para la configuracion
+                          $('#version').val(conf['version']);
+                          $('#EEPROM_chk').val(conf['EEPROM_chk']);
+                          $('#DevName').val(conf['DevName']);
+                          $('#Latitud').val(conf['Latitud']);
+                          $('#Longitud').val(conf['Longitud']);
+                          $('#TimeZone').val(conf['TimeZone']);
+                          $('#IP_1').val(conf['IP_1']);
+                          $('#IP_2').val(conf['IP_2']);
+                          $('#IP_3').val(conf['IP_3']);
+                          $('#IP_4').val(conf['IP_4']);
+                          $('#username').val(conf['username']);
+                          $('#password').val(conf['password']);
+                          $('#clientID').val(conf['clientID']);
+                          $('#pwd').val(conf['pwd']);
+                          $('#ip_aire').val(conf['ip_aire']);
+                          $('#ip_inversor').val(conf['ip_inversor']);
+                          $('#sunrise').val(conf['sunrise']);
+                          $('#sunset').val(conf['sunset']);
+                          temp_slider.slider('setValue', [conf['temp_min'],conf['temp_max']]);
+                          $('#temp_max').val(conf['temp_max']);
+                          $('#temp_min').val(conf['temp_min']);
+                          $('#temp_mode').val(conf['temp_mode']);
+                          dibujabotonestemp(conf['temp_mode']);
+            }).fail(function(err){
+              console.log("err getJSON sendDataConf.json "+JSON.stringify(err));
+            });
+          };
+
+      $('a[data-toggle=\"tab\"]').on('shown.bs.tab', function (e) {
+        //On supprime tous les timers lorsqu'on change d'onglet
+        // clearTimeout(Timer_UdpateMesures);
+        var target = $(e.target).attr("href")
+        console.log('activated ' + target );
+        $(".alert small").text('activated ' + target);
+          if (target=='#tab_temp' || target=='#tab_gpio' )  {
+            $(".alert small").text("solicitando estado de relés");
+            updateGPIO();
+          }
+
+        });
+
+
+
+function updateTable(){
+      $.getJSON('/tabmesures.json', function(data2){
+        dObject = JSON.parse(JSON.stringify(data2));
+        datosTabla = dObject;
+        console.log("datosTabla");
+        console.log(datosTabla);
+            $('#inversor').html(datosTabla["inversor_Power"]);
+            $('#pzem').html(datosTabla["pzem_power"]);
+            $('#aire').html(datosTabla["aire_Power"]);
+        $('#table_mesures').bootstrapTable('load',
+             responseHanlder(datosTabla)
+        );
+      }).fail(function(err){
+        console.log("err getJSON mesures.json "+JSON.stringify(err));
+      });
+    };
+
+      function responseHanlder(res) {
+          var data = [];
+          for (var key in res) {
+              data.push({
+                  key: key,
+                  value: res[key]
+              });
+          }
+          return data;
+        }
+
+
+      function updateMesures(){
+        $.getJSON('/mesures.json', function(data){
+          $('#inversor').html(data.inversor_Power);
+          $('#pzem').html(data.pzem_power);
+          $('#aire').html(data.aire_Power);
+        }).fail(function(err){
+          console.log("err getJSON mesures.json "+JSON.stringify(err));
+        });
+      };
+
+      function updateGPIO(){
+        $.getJSON('/readgpio.json', function(data){
+          //console.log("Mesures envoyees : " + JSON.stringify(data) + "|" + data.t + "|" + data.h + "|" + data.pa) ;
+          $(".alert small").text( JSON.stringify(data));
+          var est = ["OFF", "ON"]; //vienen 1 y 0 para que ponga ON/OFF
+          $('#D0_etat').html(est[data.D0]);
+          $("#D0_etat").removeClass();
+          if(data.D0>0){$("#D0_etat").addClass("badge badge-success badge-pill");}
+          else{$("#D0_etat").addClass("badge badge-danger badge-pill");}
+          $('#D3_etat').html(est[data.D3]);
+          $("#D3_etat").removeClass();
+          if(data.D3>0){$("#D3_etat").addClass("badge badge-success badge-pill");}
+          else{$("#D3_etat").addClass("badge badge-danger badge-pill");}
+
+          $('#D7_etat').html(est[data.D7]);
+          $("#D7_etat").removeClass();
+          if(data.D7>0){$("#D7_etat").addClass("badge badge-success badge-pill");}
+          else{$("#D7_etat").addClass("badge badge-danger badge-pill");}
+
+          $('#D8_etat').html(est[data.D8]);
+          $("#D8_etat").removeClass();
+          if(data.D8>0){$("#D8_etat").addClass("badge badge-success badge-pill");}
+          else{$("#D8_etat").addClass("badge badge-danger badge-pill");}
+
+
+
+        $('#aire_etat').html(est[datosTabla["aire_estado"]]);
+        $("#aire_etat").removeClass();
+        if(datosTabla["aire_estado"]>0){$("#aire_etat").addClass("badge badge-success badge-pill");}
+        else{$("#aire_etat").addClass("badge badge-danger badge-pill");}
+
+        $('#inversor_etat').html(est[datosTabla["inversor_estado"]]);
+        $("#inversor_etat").removeClass();
+        if(datosTabla["inversor_estado"]>0){$("#inversor_etat").addClass("badge badge-success badge-pill");}
+        else{$("#inversor_etat").addClass("badge badge-danger badge-pill");}
+
+
+
+        }).fail(function(err){
+          console.log("err getJSON mesures.json "+JSON.stringify(err));
+        });
+      };
+
+
+      // Commandes sur le GPIO - GPIO change
+      $('#D0_On').click(function(){ setBouton('D0','1'); });
+      $('#D0_Off').click(function(){ setBouton('D0','0'); });
+      $('#D3_On').click(function(){ setBouton('D3','1'); });
+      $('#D3_Off').click(function(){ setBouton('D3','0'); });
+      $('#D7_On').click(function(){ setBouton('D7','1'); });
+      $('#D7_Off').click(function(){ setBouton('D7','0'); });
+      $('#D8_On').click(function(){ setBouton('D8','1'); });
+      $('#D8_Off').click(function(){ setBouton('D8','0'); });
+
+      $('#aire_On').click(function(){ setBouton('aire','1'); });
+      $('#aire_Off').click(function(){ setBouton('aire','0'); });
+      $('#inversor_On').click(function(){ setBouton('inversor','1'); });
+      $('#inversor_Off').click(function(){ setBouton('inversor','0'); });
+
+
+
+      function setBouton(id, etat){
+        $.post("gpio?id=" + id + "&etat=" + etat).done(function(data){
+          //console.log("Retour setBouton " + JSON.stringify(data));
+          var id_gpio = "#" + id + "_etat";
+          //console.log(id_gpio);
+            $(id_gpio).removeClass();
+          if ( data.success === "1" ) {
+            updateGPIO();
+            if ( data.etat === "1" ) {
+              $(id_gpio).addClass("badge badge-success badge-pill");
+              $(id_gpio).html("ON");
+            } else {
+              $(id_gpio).addClass("badge badge-danger badge-pill");
+              $(id_gpio).html("OFF");
+            }
+          } else {
+            $(id_gpio).html('!');
+          }
+        }).fail(function(err){
+          console.log("err setButton " + JSON.stringify(err));
+        });
+      }
+
+
+            $.getJSON("https://bootswatch.com/api/4.json", function (data) {
+              var themes = data.themes;
+              //console.log(themes);
+              themes.splice(0, 0, {name: 'bootstrap'});
+              var select = $("select");
+              select.show();
+              $(".alert").toggleClass("alert-info alert-success");
+              $(".alert small").text("Success!");
+
+              themes.forEach(function(value, index){
+                select.append($("<option />")
+                      .val(index)
+                      .text(value.name));
+              });
+
+             select.change(function(){
+                var theme = themes[$(this).val()];
+                if (theme.name== "bootstrap"){
+                  var theme_url="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+                  $('link[title="main"]').attr("href", theme_url);
+                }else{
+                $('link[title="main"]').attr("href", theme.css);
+              }
+              }).change();
+
+            }, "json").fail(function(){
+                $(".alert").toggleClass("alert-info alert-danger");
+                $(".alert small").text("Failure!");
+            });
+
+        </script>
+        <h1><span id="info"></span></h1>
+          <div class="alert alert-info">
+            <small>Alert!</small>
+            <p></p>
+          </div>
+          <select></select>
+        </body>
+        </html>
